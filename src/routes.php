@@ -7,7 +7,9 @@ $app->group("/api/v1", function(){
     $this->get("/todos", function(Request $request, Response $response, array $args){
         $table = $this->get("db")->table("tarefas");
         $result = $table->get();
-        return $response->withStatus(200)->withJson($result);
+        $todos = ["ToDoList" => $result];
+
+        return $response->withStatus(200)->withJson($todos);
 
     });
 
