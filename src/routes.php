@@ -6,8 +6,13 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->group("/api/v1", function(){
     $this->get("/todos", function(Request $request, Response $response, array $args){
         $table = $this->get("db")->table("tarefas");
-        $result = $table->get();
-        $todos = ["ToDoList" => $result];
+        $results = $table->get();
+        $todos = ["ToDoList" => []];
+
+        foreach ($results as $result){
+            array_push($todos['ToDoList'], (array)$result);
+        }
+
 
         return $response->withStatus(200)->withJson($todos);
 
