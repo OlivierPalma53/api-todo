@@ -8,11 +8,10 @@ $app->group("/api/v1", function(){
         $table = $this->get("db")->table("tarefas");
         $results = $table->get();
         $todos = ["ToDoList" => []];
+        foreach ($results as $todo){
+            $todos["ToDoList"] = ["nome" => $todo->nome, "id" => $todo->id];
 
-        foreach ($results as $result){
-            array_push($todos['ToDoList'], (array)$result);
         }
-
 
         return $response->withStatus(200)->withJson($todos);
 
